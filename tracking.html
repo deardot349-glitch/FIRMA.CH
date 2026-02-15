@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Відстеження замовлення — FIRMA.CH</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .tracking-container { min-height: calc(100vh - 200px); padding: 120px 0; }
+        .tracking-form { max-width: 600px; margin: 0 auto var(--spacing-xl); background: var(--color-card); border: 1px solid var(--color-border); padding: var(--spacing-md); }
+        .tracking-result { max-width: 800px; margin: 0 auto; background: var(--color-card); border: 1px solid var(--color-border); padding: var(--spacing-md); }
+        .status-timeline { display: flex; flex-direction: column; gap: var(--spacing-md); margin: var(--spacing-lg) 0; }
+        .status-item { display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-md); background: var(--color-dark-grey); border: 1px solid var(--color-border); position: relative; }
+        .status-item.active { border-color: var(--color-text); }
+        .status-icon { width: 50px; height: 50px; border-radius: 50%; background: var(--color-card); border: 2px solid var(--color-border); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .status-item.active .status-icon { border-color: var(--color-text); background: var(--color-text); color: var(--color-black); }
+        .status-info { flex: 1; }
+        .status-title { font-weight: 600; margin-bottom: 0.25rem; }
+        .status-time { color: var(--color-muted); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">FIRMA.CH</a>
+                <div class="nav-links">
+                    <a href="catalog.html">Каталог</a>
+                    <a href="index.html#about">Про нас</a>
+                    <a href="index.html#contacts">Контакти</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="tracking-container">
+        <div class="container">
+            <h1 class="section-title" style="text-align: center; margin-bottom: var(--spacing-lg);">Відстеження замовлення</h1>
+            
+            <div class="tracking-form">
+                <form id="trackingForm">
+                    <div class="form-group"><label>Номер замовлення</label><input type="text" id="orderIdInput" placeholder="FM-12345" required style="width: 100%; background: var(--color-dark-grey); border: 1px solid var(--color-border); color: var(--color-text); padding: 0.75rem; font-size: 1rem;"></div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Відстежити</button>
+                </form>
+            </div>
+            
+            <div class="tracking-result" id="trackingResult" style="display: none;">
+                <h2 style="font-family: 'Orbitron', monospace; margin-bottom: var(--spacing-md);">Статус замовлення: <span id="orderIdDisplay"></span></h2>
+                <div class="status-timeline">
+                    <div class="status-item active"><div class="status-icon">1</div><div class="status-info"><div class="status-title">Підтверджено</div><div class="status-time">15.02.2025, 14:23</div></div></div>
+                    <div class="status-item active"><div class="status-icon">2</div><div class="status-info"><div class="status-title">В обробці</div><div class="status-time">15.02.2025, 15:10</div></div></div>
+                    <div class="status-item"><div class="status-icon">3</div><div class="status-info"><div class="status-title">Відправлено</div><div class="status-time">Очікується</div></div></div>
+                    <div class="status-item"><div class="status-icon">4</div><div class="status-info"><div class="status-title">Доставлено</div><div class="status-time">Очікується</div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+    <script>
+        document.getElementById('trackingForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const orderId = document.getElementById('orderIdInput').value;
+            document.getElementById('orderIdDisplay').textContent = orderId;
+            document.getElementById('trackingResult').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

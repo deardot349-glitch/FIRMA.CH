@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кошик — FIRMA.CH</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .cart-hero {
+            padding: 120px 0 60px;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--spacing-lg);
+            padding: var(--spacing-lg) 0;
+        }
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+        .cart-item {
+            display: grid;
+            grid-template-columns: 120px 1fr auto;
+            gap: var(--spacing-md);
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            padding: var(--spacing-md);
+            transition: var(--transition-fast);
+        }
+        .cart-item:hover {
+            border-color: var(--color-muted);
+        }
+        .cart-item-image {
+            width: 120px;
+            height: 120px;
+            background: var(--color-dark-grey);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        .cart-item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .cart-item-brand {
+            color: var(--color-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        .cart-item-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .cart-item-option {
+            color: var(--color-muted);
+            font-size: 0.9rem;
+        }
+        .cart-item-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: var(--spacing-sm);
+        }
+        .cart-item-price {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid var(--color-border);
+        }
+        .quantity-btn {
+            background: transparent;
+            border: none;
+            color: var(--color-text);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        .quantity-btn:hover {
+            background: var(--color-dark-grey);
+        }
+        .quantity-value {
+            padding: 0.5rem 1rem;
+            min-width: 40px;
+            text-align: center;
+        }
+        .remove-btn {
+            background: transparent;
+            border: 1px solid var(--color-border);
+            color: var(--color-muted);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        .remove-btn:hover {
+            border-color: #F44336;
+            color: #F44336;
+        }
+        .cart-summary {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            padding: var(--spacing-md);
+        }
+        .summary-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-md);
+            letter-spacing: 1px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-sm);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin: var(--spacing-md) 0;
+        }
+        .empty-cart {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--color-muted);
+        }
+        @media (max-width: 1024px) {
+            .cart-layout {
+                grid-template-columns: 1fr;
+            }
+            .cart-summary {
+                position: relative;
+                top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">FIRMA.CH</a>
+                <div class="nav-links">
+                    <a href="catalog.html">Каталог</a>
+                    <a href="index.html#about">Про нас</a>
+                    <a href="index.html#contacts">Контакти</a>
+                </div>
+                <div class="nav-actions">
+                    <a href="cart.html" class="cart-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <section class="cart-hero">
+        <div class="container">
+            <h1 class="section-title">Ваш кошик</h1>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="cart-layout" id="cartLayout">
+                <div class="cart-items" id="cartItems"></div>
+                <div class="cart-summary" id="cartSummary"></div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="app.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>

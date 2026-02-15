@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Продукт — FIRMA.CH</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .product-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            padding: 120px 0 var(--spacing-xl);
+        }
+        
+        .product-gallery {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .product-main-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10rem;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .product-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-sm);
+        }
+        
+        .thumbnail {
+            aspect-ratio: 1;
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .thumbnail:hover {
+            border-color: var(--color-text);
+        }
+        
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+        
+        .product-header {
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: var(--spacing-md);
+        }
+        
+        .product-detail-brand {
+            color: var(--color-muted);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-detail-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .product-detail-price {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 900;
+        }
+        
+        .product-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+        
+        .option-group label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .size-options, .volume-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .size-btn, .volume-btn {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .size-btn:hover, .volume-btn:hover {
+            border-color: var(--color-text);
+        }
+        
+        .size-btn.selected, .volume-btn.selected {
+            background: var(--color-text);
+            color: var(--color-black);
+            border-color: var(--color-text);
+        }
+        
+        .stock-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: var(--spacing-sm);
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+        }
+        
+        .stock-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4CAF50;
+        }
+        
+        .stock-status.out-of-stock .stock-indicator {
+            background: #F44336;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .btn-add-to-cart {
+            flex: 1;
+            background: var(--color-text);
+            color: var(--color-black);
+            border: none;
+            padding: 1.25rem;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        
+        .btn-add-to-cart:hover {
+            background: var(--color-muted);
+            transform: translateY(-2px);
+        }
+        
+        .product-description {
+            padding: var(--spacing-md);
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+        }
+        
+        .product-description h3 {
+            font-family: 'Orbitron', monospace;
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: 1px;
+        }
+        
+        .product-description p {
+            color: var(--color-muted);
+            line-height: 1.8;
+        }
+        
+        @media (max-width: 1024px) {
+            .product-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-gallery {
+                position: relative;
+                top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">FIRMA.CH</a>
+                <div class="nav-links">
+                    <a href="catalog.html">Каталог</a>
+                    <a href="index.html#about">Про нас</a>
+                    <a href="index.html#contacts">Контакти</a>
+                </div>
+                <div class="nav-actions">
+                    <button class="search-btn" id="searchToggle">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <a href="cart.html" class="cart-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <input type="text" placeholder="Пошук товарів..." class="search-input" id="searchInput">
+            <button class="search-close" id="searchClose">×</button>
+        </div>
+    </div>
+
+    <!-- Product -->
+    <section class="section">
+        <div class="container">
+            <div class="product-layout" id="productLayout">
+                <!-- Product content will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Similar Products -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Схожі товари</h2>
+                <a href="catalog.html" class="section-link">Переглянути всі →</a>
+            </div>
+            <div class="products-grid" id="similarProducts">
+                <!-- Similar products will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">FIRMA.CH</h3>
+                    <p class="footer-desc">Оригінальний одяг, взуття та парфуми від світових брендів.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Покупцям</h4>
+                    <ul class="footer-links">
+                        <li><a href="catalog.html">Каталог</a></li>
+                        <li><a href="index.html#about">Про нас</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FIRMA.CH. Всі права захищені.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="product.js"></script>
+</body>
+</html>

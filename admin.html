@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адмін панель — FIRMA.CH</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .admin-container { padding: 120px 0; }
+        .admin-tabs { display: flex; gap: 0; margin-bottom: var(--spacing-lg); border: 1px solid var(--color-border); }
+        .admin-tab { flex: 1; background: var(--color-card); border: none; border-right: 1px solid var(--color-border); color: var(--color-muted); padding: var(--spacing-sm); cursor: pointer; transition: var(--transition-fast); text-transform: uppercase; letter-spacing: 1px; }
+        .admin-tab:last-child { border-right: none; }
+        .admin-tab.active { background: var(--color-text); color: var(--color-black); }
+        .admin-tab:hover { background: var(--color-dark-grey); }
+        .admin-content { background: var(--color-card); border: 1px solid var(--color-border); padding: var(--spacing-md); }
+        .admin-section { display: none; }
+        .admin-section.active { display: block; }
+        .product-form { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md); }
+        .form-group { margin-bottom: var(--spacing-md); }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; background: var(--color-dark-grey); border: 1px solid var(--color-border); color: var(--color-text); padding: 0.75rem; font-size: 1rem; }
+        .products-table { width: 100%; border-collapse: collapse; }
+        .products-table th, .products-table td { padding: var(--spacing-sm); border-bottom: 1px solid var(--color-border); text-align: left; }
+        .products-table th { font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+        .action-btn { background: transparent; border: 1px solid var(--color-border); color: var(--color-text); padding: 0.5rem 1rem; font-size: 0.85rem; cursor: pointer; margin-right: 0.5rem; transition: var(--transition-fast); }
+        .action-btn:hover { border-color: var(--color-text); }
+        .delete-btn:hover { border-color: #F44336; color: #F44336; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">FIRMA.CH</a>
+                <div class="nav-links">
+                    <a href="index.html">На головну</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="admin-container">
+        <div class="container">
+            <h1 class="section-title" style="margin-bottom: var(--spacing-lg);">Адмін панель</h1>
+            
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="products">Товари</button>
+                <button class="admin-tab" data-tab="add">Додати товар</button>
+                <button class="admin-tab" data-tab="orders">Замовлення</button>
+            </div>
+            
+            <div class="admin-content">
+                <div class="admin-section active" id="products">
+                    <h2 style="margin-bottom: var(--spacing-md);">Список товарів</h2>
+                    <table class="products-table">
+                        <thead>
+                            <tr><th>ID</th><th>Назва</th><th>Бренд</th><th>Ціна</th><th>Категорія</th><th>Наявність</th><th>Дії</th></tr>
+                        </thead>
+                        <tbody id="productsTableBody"></tbody>
+                    </table>
+                </div>
+                
+                <div class="admin-section" id="add">
+                    <h2 style="margin-bottom: var(--spacing-md);">Додати новий товар</h2>
+                    <form id="addProductForm" class="product-form">
+                        <div class="form-group"><label>Назва *</label><input type="text" name="name" required></div>
+                        <div class="form-group"><label>Бренд *</label><input type="text" name="brand" required></div>
+                        <div class="form-group"><label>Ціна (₴) *</label><input type="number" name="price" required></div>
+                        <div class="form-group"><label>Категорія *</label><select name="category" required><option value="clothing">Одяг</option><option value="shoes">Взуття</option><option value="perfume">Парфуми</option><option value="accessories">Аксесуари</option></select></div>
+                        <div class="form-group"><label>Іконка (емоджі)</label><input type="text" name="image" placeholder="👕"></div>
+                        <div class="form-group"><label>Наявність *</label><input type="number" name="stock" required value="0"></div>
+                        <div class="form-group" style="grid-column: 1 / -1;"><label>Розміри (через кому)</label><input type="text" name="sizes" placeholder="S, M, L, XL"></div>
+                        <div class="form-group" style="grid-column: 1 / -1;"><button type="submit" class="btn btn-primary" style="width: 100%;">Додати товар</button></div>
+                    </form>
+                </div>
+                
+                <div class="admin-section" id="orders">
+                    <h2 style="margin-bottom: var(--spacing-md);">Замовлення</h2>
+                    <table class="products-table">
+                        <thead>
+                            <tr><th>ID</th><th>Клієнт</th><th>Телефон</th><th>Сума</th><th>Статус</th><th>Дії</th></tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <tr><td colspan="6" style="text-align: center; color: var(--color-muted);">Замовлень поки немає</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

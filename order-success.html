@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Замовлення успішно оформлено — FIRMA.CH</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .success-container { min-height: calc(100vh - 200px); display: flex; align-items: center; justify-content: center; padding: 120px 0; }
+        .success-content { text-align: center; max-width: 600px; background: var(--color-card); border: 1px solid var(--color-border); padding: var(--spacing-xl); }
+        .success-icon { font-size: 5rem; margin-bottom: var(--spacing-md); }
+        .success-title { font-family: 'Orbitron', monospace; font-size: 2rem; margin-bottom: var(--spacing-sm); }
+        .order-id { font-family: 'Orbitron', monospace; font-size: 1.5rem; color: var(--color-muted); margin: var(--spacing-md) 0; }
+        .order-details { background: var(--color-dark-grey); border: 1px solid var(--color-border); padding: var(--spacing-md); margin: var(--spacing-md) 0; text-align: left; }
+        .detail-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--color-border); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">FIRMA.CH</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="success-container">
+        <div class="success-content">
+            <div class="success-icon">✓</div>
+            <h1 class="success-title">Замовлення успішно оформлено</h1>
+            <p style="color: var(--color-muted); margin-bottom: var(--spacing-md);">Дякуємо за ваше замовлення! Ми зв'яжемося з вами найближчим часом.</p>
+            <div class="order-id">Номер замовлення: <span id="orderId"></span></div>
+            <div class="order-details" id="orderDetails"></div>
+            <div style="display: flex; gap: var(--spacing-sm); margin-top: var(--spacing-md);">
+                <a href="tracking.html" class="btn btn-primary" style="flex: 1;">Відстежити замовлення</a>
+                <a href="index.html" class="btn btn-secondary" style="flex: 1;">На головну</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+    <script src="order-success.js"></script>
+</body>
+</html>
